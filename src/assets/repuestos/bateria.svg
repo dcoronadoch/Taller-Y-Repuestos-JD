@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" width="400" height="300">
+  <defs>
+    <linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#374151"/>
+      <stop offset="100%" stop-color="#111827"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="300" fill="url(#g)"/>
+  <g transform="translate(200,90)" fill="none" stroke="#ffffff" stroke-opacity="0.92" stroke-width="6" stroke-linejoin="round">
+  <rect x="-40" y="0" width="80" height="55" rx="6"/>
+  <rect x="-16" y="-14" width="12" height="14" fill="#ffffff" stroke="none"/>
+  <rect x="6" y="-14" width="12" height="14" fill="#ffffff" stroke="none"/>
+  <line x1="-20" y1="27" x2="20" y2="27" stroke-width="7"/>
+  <line x1="0" y1="12" x2="0" y2="42" stroke-width="7"/>
+</g>
+  <text x="200" y="245" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#ffffff" text-anchor="middle">
+    Bateria 12V 650A
+  </text>
+</svg>

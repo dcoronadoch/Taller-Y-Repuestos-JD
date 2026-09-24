@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" width="400" height="300">
+  <defs>
+    <linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#991b1b"/>
+      <stop offset="100%" stop-color="#111827"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="300" fill="url(#g)"/>
+  <g transform="translate(200,115)" fill="#ffffff" fill-opacity="0.92">
+  <circle r="16" fill="none" stroke="#ffffff" stroke-width="10"/>
+  <line x1="24" y1="0" x2="34" y2="0" stroke="#ffffff" stroke-width="9" stroke-linecap="round"/>
+  <line x1="17" y1="17" x2="24" y2="24" stroke="#ffffff" stroke-width="9" stroke-linecap="round"/>
+  <line x1="0" y1="24" x2="0" y2="34" stroke="#ffffff" stroke-width="9" stroke-linecap="round"/>
+  <line x1="-17" y1="17" x2="-24" y2="24" stroke="#ffffff" stroke-width="9" stroke-linecap="round"/>
+  <line x1="-24" y1="0" x2="-34" y2="0" stroke="#ffffff" stroke-width="9" stroke-linecap="round"/>
+  <line x1="-17" y1="-17" x2="-24" y2="-24" stroke="#ffffff" stroke-width="9" stroke-linecap="round"/>
+  <line x1="0" y1="-24" x2="0" y2="-34" stroke="#ffffff" stroke-width="9" stroke-linecap="round"/>
+  <line x1="17" y1="-17" x2="24" y2="-24" stroke="#ffffff" stroke-width="9" stroke-linecap="round"/>
+</g>
+  <text x="200" y="245" font-family="Arial, sans-serif" font-size="20" font-weight="bold" fill="#ffffff" text-anchor="middle">
+    Kit de Embrague
+  </text>
+</svg>
