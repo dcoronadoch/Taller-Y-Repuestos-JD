@@ -7,6 +7,11 @@ Sitio web para un taller de mecánica y venta de repuestos automotrices, desarro
 **II Entregable — Front Office funcional: Hooks, Context API y consumo de APIs**
 Profesor: Mag. Enrique Gómez Jiménez — II Ciclo 2026
 
+## Repositorio
+
+El código fuente de este proyecto se encuentra alojado en GitHub:
+🔗 [Taller-Y-Repuestos-JD-TS](https://github.com/bztrr5tzhs-maker/Taller-Y-Repuestos-JD-TS)
+
 ## Tecnologías utilizadas
 
 - **React 19** + **TypeScript**
