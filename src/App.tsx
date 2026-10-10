@@ -11,7 +11,9 @@ import RepuestoDetalle from "./pages/RepuestoDetalle";
 import Contacto from "./pages/Contacto";
 import Carrito from "./pages/Carrito";
 import Factura from "./pages/Factura";
+import NotFound from "./pages/NotFound";
 import "./App.css";
+
 
 function App() {
     return (
@@ -30,6 +32,7 @@ function App() {
                     <Route path="/contacto" element={<Contacto />} />
                     <Route path="/carrito" element={<Carrito />} />
                     <Route path="/factura" element={<Factura />} />
+                    <Route path="*" element={<NotFound />} />
                 </Routes>
             </main>
 
