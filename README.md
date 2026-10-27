@@ -99,12 +99,9 @@ La aplicación funciona como una SPA: el navegador carga una sola página y Reac
 | Ruta | Vista / componente | Propósito |
 |---|---|---|
 | `/` | `Inicio.tsx` | Presentar el taller y dar acceso rápido al catálogo |
-| `/nosotros` | `Nosotros.tsx` | Mostrar historia, misión, visión y valores |
-| `/servicios` | `Servicios.tsx` | Describir los servicios y el proceso de trabajo |
 | `/catalogo` | `Catalogo.tsx` | Listar los repuestos con filtros por categoría y marca |
 | `/repuesto/:id` | `RepuestoDetalle.tsx` | Mostrar el detalle de un repuesto (parámetro de ruta) y agregarlo al carrito |
 | `/favoritos` | `Favoritos.tsx` | Mostrar los repuestos marcados como favoritos |
-| `/contacto` | `Contacto.tsx` | Formulario de contacto y ubicación del taller |
 | `/carrito` | `Carrito.tsx` | Gestionar cantidades y ver el total en colones y dólares |
 | `/factura` | `Factura.tsx` | Capturar datos de envío o retiro en tienda y confirmar el pedido |
 | `*` | `NotFound.tsx` | Responder con una página 404 ante una ruta no reconocida |
@@ -145,7 +142,6 @@ En total hay **21 pruebas** en 4 archivos:
 - **Formulario de facturación** con datos de envío y opción de retiro en tienda
 - **Conversión de moneda en tiempo real** (colones/dólares) en el carrito y la factura
 - **Página 404** para rutas no reconocidas
-- Formulario de contacto controlado
 - Menú responsive con animación en cascada
 - Persistencia del carrito y favoritos en `localStorage`
 

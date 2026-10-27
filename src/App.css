@@ -318,15 +318,6 @@ section h2 {
 =                  FORMULARIO                      =
 ==================================================*/
 
-.formulario {
-    max-width: 900px;
-    margin: auto;
-    background: var(--color-blanco);
-    padding: 40px;
-    border-radius: var(--radio);
-    box-shadow: var(--sombra);
-}
-
 .grupo {
     margin-bottom: 25px;
 }
@@ -359,16 +350,6 @@ section h2 {
 .grupo textarea {
     resize: vertical;
     min-height: 150px;
-}
-
-.mensaje-confirmacion {
-    margin-top: 18px;
-    padding: 14px 18px;
-    background: #dcfce7;
-    color: #166534;
-    border-radius: var(--radio);
-    font-weight: 600;
-    text-align: center;
 }
 
 /*==================================================

@@ -52,36 +52,6 @@ function Header() {
 
                         <li>
                             <NavLink
-                                to="/nosotros"
-                                className={({ isActive }) => (isActive ? "activo" : "")}
-                                onClick={cerrarMenu}
-                            >
-                                Nosotros
-                            </NavLink>
-                        </li>
-
-                        <li>
-                            <NavLink
-                                to="/servicios"
-                                className={({ isActive }) => (isActive ? "activo" : "")}
-                                onClick={cerrarMenu}
-                            >
-                                Servicios
-                            </NavLink>
-                        </li>
-
-                        <li>
-                            <NavLink
-                                to="/contacto"
-                                className={({ isActive }) => (isActive ? "activo" : "")}
-                                onClick={cerrarMenu}
-                            >
-                                Contacto
-                            </NavLink>
-                        </li>
-
-                        <li>
-                            <NavLink
                                 to="/catalogo"
                                 className={({ isActive }) => (isActive ? "activo" : "")}
                                 onClick={cerrarMenu}
