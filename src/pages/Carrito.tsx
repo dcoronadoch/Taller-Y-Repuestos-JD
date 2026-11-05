@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { useCart } from "../context/CartContext";
 import { useExchangeRate } from "../hooks/useExchangeRate";
+import ImagenRepuesto from "../components/repuestos/ImagenRepuesto";
 
 function Carrito() {
     const { carrito, cambiarCantidad, quitarDelCarrito, vaciarCarrito } = useCart();
@@ -54,7 +55,7 @@ function Carrito() {
                                 <article key={item.repuesto.id} className="carrito-item">
 
                                     <div className="carrito-item-producto">
-                                        <img
+                                        <ImagenRepuesto
                                             src={item.repuesto.imagen}
                                             alt={item.repuesto.nombre}
                                             className="carrito-item-imagen"

@@ -1,14 +1,14 @@
 import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { vi } from "vitest";
 import { renderApp } from "../test/utils";
+import { simularApi } from "../test/api-simulada";
 
 // Agrega la primera pieza del catálogo (Pastillas de freno, ₡18 500) y abre el carrito
 async function agregarPrimerRepuestoYAbrirCarrito() {
     const user = userEvent.setup();
     renderApp("/catalogo");
 
-    await user.click(screen.getAllByRole("button", { name: "Agregar al carrito" })[0]);
+    await user.click((await screen.findAllByRole("button", { name: "Agregar al carrito" }))[0]);
     await user.click(screen.getByRole("link", { name: "Carrito (1)" }));
 
     return user;
@@ -30,14 +30,14 @@ describe("Carrito y consumo de la API de tipo de cambio", () => {
     });
 
     it("mientras la API responde muestra el estado de carga", async () => {
-        vi.stubGlobal("fetch", vi.fn(() => new Promise(() => {}))); // nunca responde
+        simularApi({ tipoCambio: "pendiente" }); // la API de tipo de cambio nunca responde
         await agregarPrimerRepuestoYAbrirCarrito();
 
         expect(screen.getByText("Calculando...")).toBeInTheDocument();
     });
 
     it("si la API falla, el carrito sigue funcionando y avisa que el valor no está disponible", async () => {
-        vi.stubGlobal("fetch", vi.fn(() => Promise.reject(new Error("sin red"))));
+        simularApi({ tipoCambio: "error" });
         await agregarPrimerRepuestoYAbrirCarrito();
 
         expect(await screen.findByText("No disponible")).toBeInTheDocument();

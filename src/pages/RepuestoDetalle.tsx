@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { repuestos } from "../data/data";
+import { useRepuesto } from "../hooks/useRepuestos";
+import ImagenRepuesto from "../components/repuestos/ImagenRepuesto";
 import { useCart } from "../context/CartContext";
 import { useFavorites } from "../context/FavoritesContext";
 
@@ -12,11 +13,41 @@ function RepuestoDetalle() {
     const { esFavorito, alternarFavorito } = useFavorites();
     
 
-    const repuesto = repuestos.find((r) => r.id === Number(id));
+    const { repuesto, cargando, noEncontrado, error, recargar } = useRepuesto(id);
 
     const [cantidad, setCantidad] = useState(1);
 
-    if (!repuesto) {
+    if (cargando) {
+        return (
+            <section className="catalogo">
+                <div className="contenedor centrar">
+                    <p className="catalogo-sin-resultados" role="status">
+                        Cargando repuesto...
+                    </p>
+                </div>
+            </section>
+        );
+    }
+
+    if (error) {
+        return (
+            <section className="catalogo">
+                <div className="contenedor centrar" role="alert">
+                    <h2>No se pudo cargar el repuesto</h2>
+
+                    <p>{error}</p>
+
+                    <br />
+
+                    <button type="button" className="boton" onClick={recargar}>
+                        Reintentar
+                    </button>
+                </div>
+            </section>
+        );
+    }
+
+    if (noEncontrado || !repuesto) {
         return (
             <section className="catalogo">
                 <div className="contenedor centrar">
@@ -55,7 +86,7 @@ function RepuestoDetalle() {
                 <div className="detalle-repuesto-layout">
 
                     <div className="detalle-repuesto-imagen">
-                        <img src={repuesto.imagen} alt={repuesto.nombre} />
+                        <ImagenRepuesto src={repuesto.imagen} alt={repuesto.nombre} />
 
                         {!repuesto.disponible && (
                             <span className="etiqueta-agotado">Agotado</span>
@@ -78,6 +109,12 @@ function RepuestoDetalle() {
                         </div>
 
                         <h1>{repuesto.nombre}</h1>
+
+                        {repuesto.descripcion && (
+                            <p className="detalle-repuesto-descripcion" style={{ marginBottom: "16px" }}>
+                                {repuesto.descripcion}
+                            </p>
+                        )}
 
                         <ul className="detalle-repuesto-especificaciones">
                             <li><strong>Categoría:</strong> {repuesto.categoria}</li>

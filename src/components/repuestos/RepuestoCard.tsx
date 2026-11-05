@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import type { Repuesto } from "../../data/data";
 import { useCart } from "../../context/CartContext";
 import { useFavorites } from "../../context/FavoritesContext";
+import ImagenRepuesto from "./ImagenRepuesto";
 
 interface RepuestoCardProps {
     repuesto: Repuesto;
@@ -26,7 +27,7 @@ function RepuestoCard({ repuesto }: RepuestoCardProps) {
                     ♥
                 </button>
 
-                <img src={repuesto.imagen} alt={repuesto.nombre} />
+                <ImagenRepuesto src={repuesto.imagen} alt={repuesto.nombre} />
 
                 {!repuesto.disponible && (
                     <span className="etiqueta-agotado">Agotado</span>

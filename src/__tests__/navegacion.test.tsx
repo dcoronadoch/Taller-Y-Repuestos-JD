@@ -20,26 +20,34 @@ describe("Navegación SPA y React Router", () => {
         renderApp("/catalogo");
 
         // La primera tarjeta es "Pastillas de freno cerámicas" (id 1)
-        await user.click(screen.getAllByRole("link", { name: "Ver información" })[0]);
+        await user.click((await screen.findAllByRole("link", { name: "Ver información" }))[0]);
 
         expect(window.location.pathname).toBe("/repuesto/1");
         expect(
-            screen.getByRole("heading", { level: 1, name: "Pastillas de freno cerámicas" })
+            await screen.findByRole("heading", { level: 1, name: "Pastillas de freno cerámicas" })
         ).toBeInTheDocument();
     });
 
-    it("una ruta con parámetro válido muestra el repuesto correspondiente", () => {
+    it("una ruta con parámetro válido muestra el repuesto que devuelve la API", async () => {
         renderApp("/repuesto/2");
 
         expect(
-            screen.getByRole("heading", { level: 1, name: "Amortiguador delantero" })
+            await screen.findByRole("heading", { level: 1, name: "Amortiguador delantero" })
         ).toBeInTheDocument();
+        expect(screen.getByText("Amortiguador hidráulico para eje delantero.")).toBeInTheDocument();
     });
 
-    it("una ruta con parámetro inexistente muestra el mensaje de repuesto no encontrado", () => {
+    it("una ruta con parámetro inexistente muestra el mensaje de repuesto no encontrado", async () => {
         renderApp("/repuesto/999");
 
+        expect(await screen.findByText("Repuesto no encontrado")).toBeInTheDocument();
+    });
+
+    it("un parámetro que no es un número no consulta la API y muestra repuesto no encontrado", () => {
+        renderApp("/repuesto/abc");
+
         expect(screen.getByText("Repuesto no encontrado")).toBeInTheDocument();
+        expect(fetch).not.toHaveBeenCalled();
     });
 
     it("una ruta no reconocida muestra la página 404", () => {

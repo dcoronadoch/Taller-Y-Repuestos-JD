@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useMemo, useState, type ReactNode } from "react";
-import { repuestos, type CartItem, type Repuesto } from "../data/data";
+import type { CartItem, Repuesto } from "../data/data";
 
 interface CartContextValue {
     carrito: CartItem[];
@@ -14,9 +14,36 @@ const CartContext = createContext<CartContextValue | undefined>(undefined);
 
 const CLAVE_ALMACENAMIENTO = "taller-jd-carrito";
 
-interface CarritoGuardado {
-    id: number;
-    cantidad: number;
+// El carrito guarda una copia de cada repuesto (nombre, precio, imagen...),
+// porque los repuestos ya no están en el código: viven en la base de datos.
+function esRepuestoValido(valor: unknown): valor is Repuesto {
+    if (typeof valor !== "object" || valor === null) return false;
+
+    const r = valor as Record<string, unknown>;
+
+    return (
+        typeof r.id === "number" &&
+        typeof r.nombre === "string" &&
+        typeof r.categoria === "string" &&
+        typeof r.marca === "string" &&
+        typeof r.precio === "number" &&
+        Number.isFinite(r.precio) &&
+        typeof r.disponible === "boolean" &&
+        typeof r.imagen === "string"
+    );
+}
+
+function esItemValido(valor: unknown): valor is CartItem {
+    if (typeof valor !== "object" || valor === null) return false;
+
+    const item = valor as Record<string, unknown>;
+
+    return (
+        esRepuestoValido(item.repuesto) &&
+        typeof item.cantidad === "number" &&
+        Number.isInteger(item.cantidad) &&
+        item.cantidad >= 1
+    );
 }
 
 interface CartProviderProps {
@@ -32,31 +59,15 @@ export function CartProvider({ children }: CartProviderProps) {
             const datos: unknown = JSON.parse(guardado);
             if (!Array.isArray(datos)) return [];
 
-            return datos
-                .filter(
-                    (item): item is CarritoGuardado =>
-                        typeof item === "object" &&
-                        item !== null &&
-                        typeof (item as CarritoGuardado).id === "number" &&
-                        typeof (item as CarritoGuardado).cantidad === "number"
-                )
-                .map((item) => {
-                    const repuesto = repuestos.find((r) => r.id === item.id);
-                    return repuesto ? { repuesto, cantidad: item.cantidad } : null;
-                })
-                .filter((item): item is CartItem => item !== null);
+            // Lo guardado con el formato anterior (solo id y cantidad) se descarta.
+            return datos.filter(esItemValido);
         } catch {
             return [];
         }
     });
 
     useEffect(() => {
-        const paraGuardar: CarritoGuardado[] = carrito.map((item) => ({
-            id: item.repuesto.id,
-            cantidad: item.cantidad,
-        }));
-
-        localStorage.setItem(CLAVE_ALMACENAMIENTO, JSON.stringify(paraGuardar));
+        localStorage.setItem(CLAVE_ALMACENAMIENTO, JSON.stringify(carrito));
     }, [carrito]);
 
     const value = useMemo<CartContextValue>(() => {
