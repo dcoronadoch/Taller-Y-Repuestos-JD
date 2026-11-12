@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import type { Repuesto } from "../data/data";
+import { escucharCambios } from "../services/cambios.service";
 import {
     obtenerRepuesto,
     obtenerRepuestos,
