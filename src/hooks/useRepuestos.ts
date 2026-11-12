@@ -56,6 +56,27 @@ export function useRepuestos(): UseRepuestosResult {
         return () => controller.abort();
     }, [intento]);
 
+    // Recarga silenciosa cuando el backend avisa que el catálogo cambió.
+    useEffect(() => {
+        let controller: AbortController | null = null;
+
+        const dejarDeEscuchar = escucharCambios(() => {
+            controller?.abort();
+            controller = new AbortController();
+
+            obtenerRepuestos(controller.signal)
+                .then(setRepuestos)
+                .catch(() => {
+                    // Si falla la recarga en segundo plano, se conserva lo que ya se ve.
+                });
+        });
+
+        return () => {
+            controller?.abort();
+            dejarDeEscuchar();
+        };
+    }, []);
+
     return {
         repuestos,
         cargando,
@@ -116,6 +137,34 @@ export function useRepuesto(idParametro: string | undefined): UseRepuestoResult 
 
         return () => controller.abort();
     }, [id, idValido, intento]);
+
+    // Recarga silenciosa cuando el backend avisa que el catálogo cambió.
+    useEffect(() => {
+        if (!idValido) return;
+
+        let controller: AbortController | null = null;
+
+        const dejarDeEscuchar = escucharCambios(() => {
+            controller?.abort();
+            controller = new AbortController();
+
+            obtenerRepuesto(id, controller.signal)
+                .then((actualizado) => {
+                    setNoEncontrado(false);
+                    setRepuesto(actualizado);
+                })
+                .catch((err) => {
+                    if (err instanceof RepuestoNoEncontradoError) {
+                        setNoEncontrado(true);
+                    }
+                });
+        });
+
+        return () => {
+            controller?.abort();
+            dejarDeEscuchar();
+        };
+    }, [id, idValido]);
 
     return {
         repuesto: idValido ? repuesto : null,
